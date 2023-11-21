@@ -111,62 +111,62 @@ function App() {
          <div className="bottom h-72 rounded-md m-2 min-w-fit flex">
             <div className="left-kb min-w-fit min-h-full w-full grid grid-cols-4 grid-rows-5 gap-1">
                <button
-                  className="col-span-2 border rounded-md  bg-rose-50 hover:font-semibold"
+                  className="col-span-2 border rounded-md  bg-rose-50 hover:font-semibold hover:shadow-inner"
                   onClick={handleAllClear}
                >
                   AC
                </button>
                <button
-                  className="border rounded-md bg-amber-100 hover:font-semibold"
+                  className="border rounded-md bg-amber-100 hover:font-semibold hover:shadow-inner"
                   onClick={handleDel}
                >
                   DEL
                </button>
 
                <button
-                  className="border rounded-md bg-sky-100 hover:font-semibold"
+                  className="border rounded-md bg-sky-100 hover:font-semibold hover:shadow-inner"
                   onClick={handleSymbolClick}
                >
                   /
                </button>
                <button
-                  className="border rounded-md hover:font-semibold"
+                  className="border rounded-md hover:font-semibold bg-white hover:shadow-inner"
                   onClick={handleNumbersClick}
                >
                   7
                </button>
                <button
-                  className="border rounded-md hover:font-semibold"
+                  className="border rounded-md hover:font-semibold bg-white hover:shadow-inner"
                   onClick={handleNumbersClick}
                >
                   8
                </button>
                <button
-                  className="border rounded-md hover:font-semibold"
+                  className="border rounded-md hover:font-semibold bg-white hover:shadow-inner"
                   onClick={handleNumbersClick}
                >
                   9
                </button>
                <button
-                  className="border rounded-md  bg-sky-100 hover:font-semibold"
+                  className="border rounded-md  bg-sky-100 hover:font-semibold hover:shadow-inner"
                   onClick={handleSymbolClick}
                >
                   x
                </button>
                <button
-                  className="border rounded-md hover:font-semibold"
+                  className="border rounded-md hover:font-semibold bg-white hover:shadow-inner"
                   onClick={handleNumbersClick}
                >
                   4
                </button>
                <button
-                  className="border rounded-md hover:font-semibold"
+                  className="border rounded-md hover:font-semibold bg-white hover:shadow-inner"
                   onClick={handleNumbersClick}
                >
                   5
                </button>
                <button
-                  className="border rounded-md hover:font-semibold"
+                  className="border rounded-md hover:font-semibold bg-white hover:shadow-inner"
                   onClick={handleNumbersClick}
                >
                   6
@@ -178,43 +178,43 @@ function App() {
                   -
                </button>
                <button
-                  className="border rounded-md hover:font-semibold"
+                  className="border rounded-md hover:font-semibold bg-white hover:shadow-inner"
                   onClick={handleNumbersClick}
                >
                   1
                </button>
                <button
-                  className="border rounded-md hover:font-semibold"
+                  className="border rounded-md hover:font-semibold bg-white hover:shadow-inner"
                   onClick={handleNumbersClick}
                >
                   2
                </button>
                <button
-                  className="border rounded-md hover:font-semibold"
+                  className="border rounded-md hover:font-semibold bg-white hover:shadow-inner"
                   onClick={handleNumbersClick}
                >
                   3
                </button>
                <button
-                  className="border rounded-md  bg-sky-100 hover:font-semibold"
+                  className="border rounded-md  bg-sky-100 hover:font-semibold hover:shadow-inner"
                   onClick={handleSymbolClick}
                >
                   +
                </button>
                <button
-                  className="border rounded-md hover:font-semibold"
+                  className="border rounded-md hover:font-semibold bg-white hover:shadow-inner"
                   onClick={handleNumbersClick}
                >
                   0
                </button>
                <button
-                  className="border rounded-md hover:font-semibold"
+                  className="border rounded-md hover:font-semibold bg-white hover:shadow-inner"
                   onClick={handleNumbersClick}
                >
                   .
                </button>
                <button
-                  className="col-span-2 border rounded-md bg-sky-200 hover:font-semibold"
+                  className="col-span-2 border rounded-md bg-sky-200 hover:font-semibold hover:shadow-inner"
                   onClick={handleResult}
                >
                   =
