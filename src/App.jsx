@@ -3,25 +3,98 @@ import { useState } from "react";
 import "./App.css";
 
 function App() {
-   // forward numbers values from keys of calc
-   const [numberKey, setNumberKey] = useState("");
    // controls value of screen top values
    const [value, setValue] = useState("");
+   // controls values of 2nd input screen (2nd from top)
+   const [inputValue, setInputValue] = useState("");
    //  controls value of arithmetic operator
    const [operator, setOperator] = useState("");
+   //  controls value of arithmetic operator2
+   //  const [operator2, setOperator2] = useState("");
 
    const handleNumbersClick = (e) => {
-      if (operator) {
-         setNumberKey(e.target.innerText);
-         setOperator("");
-      }
-      if (!operator) setNumberKey(numberKey + e.target.innerText);
+      if (operator) setInputValue(e.target.innerText);
+
+      setInputValue(inputValue + e.target.innerText);
    };
 
    const handleSymbolClick = (e) => {
-      setValue(numberKey + e.target.innerText);
-      setOperator(e.target.innerText);
-      setNumberKey("0");
+      setValue(inputValue);
+      if (!operator) {
+         setValue(inputValue);
+         setOperator(e.target.innerText);
+         setInputValue("");
+      }
+
+      // if value is not empty string, return value
+      if (value != "") {
+         setValue(value);
+      }
+   };
+
+   const handleAllClear = () => {
+      setValue("");
+      setInputValue("");
+      setOperator("");
+   };
+
+   const handleDel = () => {
+      setInputValue(inputValue.slice(0, -1));
+   };
+
+   // add
+   let add = (x, y) => {
+      setValue(x + y);
+      setOperator("");
+      setInputValue("");
+      // return x + y;
+   };
+   // subtract
+   let subtract = (x, y) => {
+      setValue(x - y);
+      setOperator("");
+      setInputValue("");
+   };
+   // multiply
+   let multiply = (x, y) => {
+      let sum = x * y;
+      if (sum % 1 === 0) {
+         setValue(sum);
+      } else {
+         setValue(Math.round(sum * 10000) / 10000);
+      }
+      setOperator("");
+      setInputValue("");
+   };
+   // divide
+   let divide = (x, y) => {
+      let sum = x / y;
+      if (sum % 1 === 0) {
+         setValue(sum);
+      } else {
+         setValue(Math.round(sum * 10000) / 10000);
+      }
+      setOperator("");
+      setInputValue("");
+   };
+
+   const handleResult = () => {
+      let x = +value;
+      let y = +inputValue;
+
+      switch (operator) {
+         case "+":
+            return add(x, y);
+         case "-":
+            return subtract(x, y);
+         case "x":
+            return multiply(x, y);
+         case "/":
+            if (y === 0) return;
+            else return divide(x, y);
+         default:
+            return null;
+      }
    };
 
    return (
@@ -29,24 +102,29 @@ function App() {
          <div className="top h-36 border rounded-md m-2 bg-white flex flex-col divide-y ">
             <div className="top-screen h-3/5 w-full text-4xl p-2 inline-flex justify-end items-end overflow-x-auto">
                {value}
+               {value ? operator : null}
             </div>
-            <div className="bottom-screen h-2/5 w-full text-3xl p-2 inline-flex justify-end items-end overflow-x-auto">
-               {numberKey}
+            <div className="bottom-screen h-2/5 w-full text-3xl p-2 inline-flex justify-end items-end overflow-x-auto text-gray-600">
+               {inputValue === "" ? 0 : inputValue}
             </div>
          </div>
          <div className="bottom h-72 rounded-md m-2 min-w-fit flex">
             <div className="left-kb min-w-fit min-h-full w-full grid grid-cols-4 grid-rows-5 gap-1">
-               <button className=" border rounded-md bg-red-200 hover:font-semibold">
-                  OFF
-               </button>
-               <button className=" border rounded-md  bg-amber-200 hover:font-semibold">
-                  C
-               </button>
-               <button className="border rounded-md bg-amber-200 hover:font-semibold">
-                  DEL
+               <button
+                  className="col-span-2 border rounded-md  bg-rose-50 hover:font-semibold"
+                  onClick={handleAllClear}
+               >
+                  AC
                </button>
                <button
-                  className="border rounded-md bg-sky-300 hover:font-semibold"
+                  className="border rounded-md bg-amber-100 hover:font-semibold"
+                  onClick={handleDel}
+               >
+                  DEL
+               </button>
+
+               <button
+                  className="border rounded-md bg-sky-100 hover:font-semibold"
                   onClick={handleSymbolClick}
                >
                   /
@@ -70,7 +148,7 @@ function App() {
                   9
                </button>
                <button
-                  className="border rounded-md  bg-sky-300 hover:font-semibold"
+                  className="border rounded-md  bg-sky-100 hover:font-semibold"
                   onClick={handleSymbolClick}
                >
                   x
@@ -94,7 +172,7 @@ function App() {
                   6
                </button>
                <button
-                  className="border rounded-md  bg-sky-300 hover:font-semibold"
+                  className="border rounded-md  bg-sky-100 hover:font-semibold"
                   onClick={handleSymbolClick}
                >
                   -
@@ -118,7 +196,7 @@ function App() {
                   3
                </button>
                <button
-                  className="border rounded-md  bg-sky-300 hover:font-semibold"
+                  className="border rounded-md  bg-sky-100 hover:font-semibold"
                   onClick={handleSymbolClick}
                >
                   +
@@ -129,10 +207,16 @@ function App() {
                >
                   0
                </button>
-               <button className="border rounded-md hover:font-semibold">
+               <button
+                  className="border rounded-md hover:font-semibold"
+                  onClick={handleNumbersClick}
+               >
                   .
                </button>
-               <button className="col-span-2 border rounded-md bg-sky-500 hover:font-semibold">
+               <button
+                  className="col-span-2 border rounded-md bg-sky-200 hover:font-semibold"
+                  onClick={handleResult}
+               >
                   =
                </button>
             </div>
