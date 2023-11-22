@@ -24,14 +24,19 @@ function App() {
    };
 
    const handleSymbolClick = (e) => {
-      // if value exist add operator next to value
-      if (value) {
-         setOperator(e.target.innerText);
+      if (value === Infinity) {
+         setValue("0");
+         setInputValue("");
+         setOperator("");
       }
+
+      // if value exist add operator next to value
+      if (typeof value === "number") setOperator(e.target.innerText);
+
+      if (value) setOperator(e.target.innerText);
+
       // prevent for spamming symbols
       if (!operator && inputValue === "") return;
-
-      if (operator) setOperator(e.target.innerText);
 
       if (!operator) {
          setValue(inputValue);
@@ -40,8 +45,8 @@ function App() {
       }
 
       // check if values exists and operator is pressed, then return result
-      if (value && inputValue) {
-         handleResult();
+      if ((typeof value === "number" && inputValue) || (value && inputValue)) {
+         handleResult(e);
          setOperator(e.target.innerText);
       }
    };
@@ -59,13 +64,11 @@ function App() {
    // add
    let add = (x, y) => {
       setValue(x + y);
-      setOperator("");
       setInputValue("");
    };
    // subtract
    let subtract = (x, y) => {
       setValue(x - y);
-      setOperator("");
       setInputValue("");
    };
    // multiply
@@ -76,14 +79,12 @@ function App() {
       } else {
          setValue(Math.round(sum * 10000) / 10000);
       }
-      setOperator("");
       setInputValue("");
    };
    // divide
    let divide = (x, y) => {
       if (y === 0) {
-         setValue(0);
-         setOperator("");
+         setValue("0");
       }
       let sum = x / y;
       if (sum % 1 === 0) {
@@ -91,14 +92,12 @@ function App() {
       } else {
          setValue(Math.round(sum * 10000) / 10000);
       }
-      setOperator("");
       setInputValue("");
    };
 
-   const handleResult = () => {
-      if (value === "") {
-         return;
-      }
+   const handleResult = (e) => {
+      if (e.target.innerText === "=") setOperator("");
+      if (value === "") return;
 
       let x = +value;
       let y = +inputValue;
@@ -122,7 +121,7 @@ function App() {
          <div className="top h-36 border rounded-md m-2 bg-white flex flex-col divide-y ">
             <div className="top-screen h-3/5 w-full text-4xl p-2 inline-flex justify-end items-end overflow-x-auto">
                {value}
-               {value ? operator : null}
+               {operator}
             </div>
             <div className="bottom-screen h-2/5 w-full text-3xl p-2 inline-flex justify-end items-end overflow-x-auto text-gray-600">
                {inputValue}
