@@ -1,7 +1,7 @@
 
 # Calculator App
 
-This is a very basic - calculator app built using React Hooks.
+This is a very basic - calculator app built using React Hooks. Task provided by bit.lt
 
 ## Usage
 You can check how app looks here: [calculator app](https://dkumza.github.io/calculator-with-react/) <br>
