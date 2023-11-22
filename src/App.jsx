@@ -9,26 +9,40 @@ function App() {
    const [inputValue, setInputValue] = useState("");
    //  controls value of arithmetic operator
    const [operator, setOperator] = useState("");
-   //  controls value of arithmetic operator2
-   //  const [operator2, setOperator2] = useState("");
 
    const handleNumbersClick = (e) => {
+      if (
+         // prevent fro spamming 0 or .
+         (e.target.innerText === "0" && inputValue === "0") ||
+         (e.target.innerText === "." && inputValue.includes("."))
+      )
+         return;
+      // after operator is clicked, pass
       if (operator) setInputValue(e.target.innerText);
 
       setInputValue(inputValue + e.target.innerText);
    };
 
    const handleSymbolClick = (e) => {
-      setValue(inputValue);
+      // if value exist add operator next to value
+      if (value) {
+         setOperator(e.target.innerText);
+      }
+      // prevent for spamming symbols
+      if (!operator && inputValue === "") return;
+
+      if (operator) setOperator(e.target.innerText);
+
       if (!operator) {
          setValue(inputValue);
          setOperator(e.target.innerText);
          setInputValue("");
       }
 
-      // if value is not empty string, return value
-      if (value != "") {
-         setValue(value);
+      // check if values exists and operator is pressed, then return result
+      if (value && inputValue) {
+         handleResult();
+         setOperator(e.target.innerText);
       }
    };
 
@@ -47,7 +61,6 @@ function App() {
       setValue(x + y);
       setOperator("");
       setInputValue("");
-      // return x + y;
    };
    // subtract
    let subtract = (x, y) => {
@@ -68,6 +81,10 @@ function App() {
    };
    // divide
    let divide = (x, y) => {
+      if (y === 0) {
+         setValue(0);
+         setOperator("");
+      }
       let sum = x / y;
       if (sum % 1 === 0) {
          setValue(sum);
@@ -79,6 +96,10 @@ function App() {
    };
 
    const handleResult = () => {
+      if (value === "") {
+         return;
+      }
+
       let x = +value;
       let y = +inputValue;
 
@@ -87,11 +108,10 @@ function App() {
             return add(x, y);
          case "-":
             return subtract(x, y);
-         case "x":
+         case "×":
             return multiply(x, y);
-         case "/":
-            if (y === 0) return;
-            else return divide(x, y);
+         case "÷":
+            return divide(x, y);
          default:
             return null;
       }
@@ -105,7 +125,7 @@ function App() {
                {value ? operator : null}
             </div>
             <div className="bottom-screen h-2/5 w-full text-3xl p-2 inline-flex justify-end items-end overflow-x-auto text-gray-600">
-               {inputValue === "" ? 0 : inputValue}
+               {inputValue}
             </div>
          </div>
          <div className="bottom h-72 rounded-md m-2 min-w-fit flex">
@@ -127,7 +147,7 @@ function App() {
                   className="border rounded-md bg-sky-100 hover:font-semibold hover:shadow-inner"
                   onClick={handleSymbolClick}
                >
-                  /
+                  ÷
                </button>
                <button
                   className="border rounded-md hover:font-semibold bg-white hover:shadow-inner"
@@ -151,7 +171,7 @@ function App() {
                   className="border rounded-md  bg-sky-100 hover:font-semibold hover:shadow-inner"
                   onClick={handleSymbolClick}
                >
-                  x
+                  ×
                </button>
                <button
                   className="border rounded-md hover:font-semibold bg-white hover:shadow-inner"
