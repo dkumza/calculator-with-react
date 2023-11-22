@@ -24,10 +24,10 @@ function App() {
    };
 
    const handleSymbolClick = (e) => {
-      if (value === Infinity) {
+      if (inputValue === "") setOperator(e.target.innerText);
+      if (inputValue === "" && value === "") {
+         setOperator(e.target.innerText);
          setValue("0");
-         setInputValue("");
-         setOperator("");
       }
 
       // if value exist add operator next to value
@@ -45,7 +45,10 @@ function App() {
       }
 
       // check if values exists and operator is pressed, then return result
-      if ((typeof value === "number" && inputValue) || (value && inputValue)) {
+      if (
+         (typeof value === "number" && inputValue === "number") ||
+         (value && inputValue)
+      ) {
          handleResult(e);
          setOperator(e.target.innerText);
       }
@@ -84,7 +87,7 @@ function App() {
    // divide
    let divide = (x, y) => {
       if (y === 0) {
-         setValue("0");
+         setValue(0);
       }
       let sum = x / y;
       if (sum % 1 === 0) {
